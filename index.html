@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tangram Memory Puzzle</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app">
+      <!-- Welcome / Menu -->
+      <main id="welcome-screen" class="screen">
+        <h1 class="title" aria-live="polite">Tangram Memory Puzzle</h1>
+        <p class="subtitle">Train photographic memory, fine motor skills and critical thinking</p>
+
+        <section class="controls" aria-label="Game controls">
+          <div class="difficulty" role="group" aria-label="Difficulty selection">
+            <label class="label">Difficulty</label>
+            <div class="buttons">
+              <button class="btn-large btn-diff" data-grid="2" aria-pressed="false">2 x 2</button>
+              <button class="btn-large btn-diff" data-grid="3" aria-pressed="false">3 x 3</button>
+              <button class="btn-large btn-diff" data-grid="4" aria-pressed="false">4 x 4</button>
+            </div>
+          </div>
+
+          <div class="mode" role="group" aria-label="Mode selection">
+            <label class="label">Mode</label>
+            <div class="buttons">
+              <button class="btn-large btn-mode" data-mode="guided" aria-pressed="true">Guided</button>
+              <button class="btn-large btn-mode" data-mode="free" aria-pressed="false">Free-form</button>
+            </div>
+          </div>
+
+          <div class="start-row">
+            <button id="start-btn" class="btn-primary btn-xl" aria-label="Start game">Start</button>
+            <button id="dashboard-btn" class="btn-secondary btn-xl" aria-label="Parent dashboard">Parent Dashboard</button>
+          </div>
+
+          <div class="small-controls">
+            <label class="switch">
+              <input id="sound-toggle" type="checkbox" checked />
+              <span class="slider"></span>
+            </label>
+            <span class="label small">Sound</span>
+            <button id="settings-btn" class="btn-icon" aria-label="Settings">⚙️</button>
+          </div>
+        </section>
+
+        <footer class="help">
+          <p>Big colorful shapes. Large touch targets. High contrast and audio feedback.</p>
+        </footer>
+      </main>
+
+      <!-- Game screen -->
+      <section id="game-screen" class="screen hidden" aria-hidden="true">
+        <header class="game-header">
+          <button id="back-menu" class="btn-large" aria-label="Back to menu">← Menu</button>
+          <div class="status">
+            <div id="timer" class="timer" aria-live="polite">View: 5</div>
+            <div id="stars" class="stars" aria-live="polite">Stars: ★★★</div>
+          </div>
+          <div class="game-actions">
+            <button id="hint-btn" class="btn-large" aria-label="Hint">Hint</button>
+            <button id="skip-btn" class="btn-large" aria-label="Skip pattern">Skip</button>
+          </div>
+        </header>
+
+        <div class="play-area" role="application" aria-label="Puzzle area">
+          <!-- Pattern display -->
+          <div id="pattern-view" class="pattern-view" aria-hidden="false">
+            <div id="pattern-canvas" class="pattern-canvas" aria-hidden="true"></div>
+            <div id="countdown-overlay" class="overlay" aria-hidden="false">
+              <div id="countdown" class="countdown" aria-live="polite">5</div>
+            </div>
+          </div>
+
+          <!-- Puzzle area for placing pieces -->
+          <div id="puzzle-area" class="puzzle-area" aria-label="Puzzle canvas" tabindex="0"></div>
+
+          <!-- Pieces palette -->
+          <aside id="pieces-palette" class="pieces-palette" aria-label="Tangram pieces">
+            <h2 class="visually-hidden">Pieces</h2>
+            <div id="pieces" class="pieces" role="list"></div>
+          </aside>
+        </div>
+
+        <div id="feedback" class="feedback" aria-live="assertive"></div>
+      </section>
+
+      <!-- Completion screen -->
+      <section id="complete-screen" class="screen hidden" aria-hidden="true">
+        <div class="celebration" role="status" aria-live="polite">
+          <h2>Great job!</h2>
+          <p id="completion-summary">You earned <span id="earned-stars">3</span> stars</p>
+          <button id="next-btn" class="btn-primary btn-xl">Next Pattern</button>
+          <button id="menu-btn" class="btn-secondary btn-xl">Back to Menu</button>
+        </div>
+      </section>
+
+      <!-- Settings modal -->
+      <div id="settings-modal" class="modal hidden" aria-hidden="true" role="dialog" aria-label="Settings">
+        <div class="modal-content">
+          <h3>Settings</h3>
+          <label for="view-time">View time (seconds)</label>
+          <input id="view-time" type="number" min="1" max="20" value="5" />
+
+          <label for="sound-on">Sound</label>
+          <input id="sound-on" type="checkbox" checked />
+
+          <label for="high-contrast">High contrast</label>
+          <input id="high-contrast" type="checkbox" />
+
+          <div class="modal-actions">
+            <button id="save-settings" class="btn-primary">Save</button>
+            <button id="close-settings" class="btn-secondary">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Minimal inline config so JS knows where to fetch patterns
+      window.APP_CONFIG = {
+        patternsUrl: "/static/patterns.json",
+        sounds: {
+          success: "/static/sounds/success.mp3",
+          place: "/static/sounds/place.mp3",
+          hint: "/static/sounds/hint.mp3"
+        }
+      };
+    </script>
+    <script src="/static/js/game.js" defer></script>
+  </body>
+</html>
