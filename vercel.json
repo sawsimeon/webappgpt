@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "routes": [
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/dashboard", "dest": "/dashboard.html" },
-    { "src": "/api/patterns", "dest": "/static/patterns.json" },
-    { "src": "/static/(.*)", "dest": "/static/$1" }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/api/patterns", "destination": "/static/patterns.json" }
   ],
   "cleanUrls": true
 }
