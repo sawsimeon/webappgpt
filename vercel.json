@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/", "destination": "/templates/index.html" },
+    { "source": "/dashboard", "destination": "/templates/dashboard.html" },
+    { "source": "/api/patterns", "destination": "/static/patterns.json" },
+    { "source": "/static/:path*", "destination": "/static/:path*" }
+  ],
+  "cleanUrls": true
+}
